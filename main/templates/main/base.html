@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="Pinegrow Web Editor - SAAS Bootstrap v5 Template"/>
+        <meta name="author" content=""/>
+        <title>{{title}}</title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{% static 'main/css/bootstrap/bootstrap_theme.css' %}"  type="text/css"/>
+        <link rel="stylesheet" href="{% static 'main/css/block.css' %}"/>
+        <link rel="stylesheet" href="{% static 'main/css/style.css' %}"/>
+    </head>
+<body class="fw-light text-secondary" style="background-image: repeating-radial-gradient(circle at left, rgba(255, 255, 255, 0.21) 9%, rgb(247, 247, 247) 58%);;">
+    {% include "main/header.html" %}
+    {% block content %}
+    {% endblock %}
+    {% include "main/footer.html" %}
+    <script src="main/js/popper.js"></script>
+    <script src="main/js/bootstrap/bootstrap.js"></script>
+</body>
+</html>
