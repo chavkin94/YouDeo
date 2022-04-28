@@ -2,7 +2,12 @@
 
 {% block content %}
 <p>Страница при посещении не зарегистрированным пользователем</p>
-
+    <main class="align-items-center d-flex justify-content-evenly text-center pt-5">
+        <div class="col-12 col-lg-5 col-md-7 col-sm-8 col-xl-4 col-xxl-4">
+            <a class="btn btn-lg btn-primary fs-6" href="{% url 'authentication_register' %}">Регистрация</a>
+            <a class="btn btn-lg btn-primary fs-6" href="{% url 'authentication_login' %}">Войти</a>
+        </div>
+    </main>
 {#    {% block mainmenu %}#}
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
@@ -15,7 +20,7 @@
                     {#			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>#}
                     {#	{% endif %}#}
                 {#    {% endfor %}#}
-                    <li class="last"><a href="{% url 'authentication_register' %}">Регистрация</a> | <a href="{% url 'authentication_login' %}">Войти</a></li>
+
             </ul>
             <div class="clear"></div>
         </div>

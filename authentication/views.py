@@ -8,7 +8,7 @@ from authentication.utils import DataMixin
 
 
 def login(request):
-    return HttpResponse("Вход")
+    return render(request, 'authentication/login.html', {'title': 'Войти'})
 
 
 def registration(request):
