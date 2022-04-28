@@ -7,16 +7,17 @@
                 <div class="d-md-flex d-xxl-flex">
                     <input class="form-control m-1" placeholder="Поиск..."/>
                     <select class="form-select m-1" aria-label="Default select example">
-                        <option selected>Любая категория</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+
+                        <option value="all_category" selected >Все категории</option>
+                        {% for sc in service_category %}
+                            <option value="{{ sc.slug }}">{{ sc.name }}</option>
+                        {% endfor %}
                     </select>
                     <select class="form-select m-1" aria-label="Default select example">
-                        <option selected>Город</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option selected>Все города</option>
+                        <option value="chita">Чита</option>
+                        <option value="moscow">Москва</option>
+                        <option value="ircutsc">Иркутск</option>
                     </select>
                     <button class="btn btn-primary m-1">Поиск</button>
                 </div>

@@ -1,19 +1,25 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView # detailviews отвечает за отображение какого либо поста (show_post)
-
+from django.contrib.auth.mixins import LoginRequiredMixin #Миксин который проверяет пользователя на авторизацию, работает только с классами представлений, если хотим работать с функцией, уже нужно исплльзовать декоратор
 from .forms import *
-from . models import  *
+from . models import *
+from .utils import *
 
-menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Добавить статью", 'url_name': 'add_page'},
-        {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'}
-        ]
+# Раньше было здесь
+# menu = [{'title': "О сайте", 'url_name': 'about'},
+#         {'title': "Добавить статью", 'url_name': 'add_page'},
+#         {'title': "Обратная связь", 'url_name': 'contact'},
+#         {'title': "Войти", 'url_name': 'login'}
+#         ]
 
 #лкассы представлений заменил index
-class WomenHome(ListView):
+class WomenHome(DataMixin, ListView):
+
     model = Women #отображает все записи
     template_name = 'women/index.html' #чтобы задать уникальный файл
     context_object_name = 'posts'  # чтобы использовать свое наименование переменной , а не object_list
@@ -21,10 +27,13 @@ class WomenHome(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs): #позволяет передовать не только статические но и динамические данные
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Главная страница'
-        context['cat_selected'] = 0
-        return context
+        # До убирания дублирования
+        # context['menu'] = menu
+        # context['title'] = 'Главная страница'
+        # context['cat_selected'] = 0
+        c_def = self.get_user_context(title="Главная страница") # Миксины чтобы убрать дублирование кода
+        # context = dict(list(context.items()) + list(c_def.items())) # Формирование общего словаря
+        return dict(list(context.items()) + list(c_def.items()))
 
     # позволяет отображать не все данные , а только те что публекуются
     def get_queryset(self):
@@ -44,21 +53,30 @@ class WomenHome(ListView):
 #     }
 #     return render(request, 'women/index.html', context=context)
 
-
+# @login_required # делает доступной только для зарегистрированных пользователей
 def about(request):
-    return render(request, 'women/about.html', {'title': 'О сайте'})
+    contact_list = Women.objects.all()
+    paginator = Paginator(contact_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'women/about.html', {'page_obj': page_obj,'menu':menu, 'title': 'О сайте'})
+    # return render(request, 'women/about.html', {'title': 'О сайте'})
 
 
-class AddPage(CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'women/addpage.html'
     success_url = reverse_lazy('home') #штука с которой нужно разобраться что то с get_absolyte
+    login_url = reverse_lazy('admin') #штука, которая перекидывает пользователя если он не авторизован
+    raise_exception = True # если мы не хотим перенапровлять неавторизованного пользователя, а хотим отображать 403 (доступ запрещен), можно без него
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Добавление статьи'
-        return context
+        # context['menu'] = menu
+        # context['title'] = 'Добавление статьи'
+        c_def = self.get_user_context(title="Добавление статьи")
+        return dict(list(context.items()) + list(c_def.items()))
+        # return context
 # использовалось до представления
 # def addpage(request):
 #     #можно делать одной строкой form = AddPostForm(), но для того чтобы данные при неправильном заполнении сохранялись нужно делать так
@@ -106,7 +124,7 @@ def login(request):
 #     return render(request, 'women/post.html', context=context)
 
 #
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = Women
     template_name = 'women/post.html'
     slug_url_kwarg = 'post_slug' #позволяет изменить наименование переменной slug на другое, аналогично для ключа, только pk
@@ -114,11 +132,13 @@ class ShowPost(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = context['post']
-        return context
+        # context['menu'] = menu
+        # context['title'] = context['post']
+        # return context
+        c_def = self.get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_def.items()))
 
-class WomenCategory(ListView):
+class WomenCategory(DataMixin, ListView):
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
@@ -130,10 +150,12 @@ class WomenCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
+        # context['menu'] = menu
+        # context['title'] = 'Категория - ' + str(context['posts'][0].cat)
+        # context['cat_selected'] = context['posts'][0].cat_id
+        # return context
+        c_def = self.get_user_context(title='Категория - ' + str(context['posts'][0].cat), cat_selected=context['posts'][0].cat_id)
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 # до применения классов редставлений
@@ -162,3 +184,13 @@ class WomenCategory(ListView):
 # def archive(request, year):
 #     return HttpResponse(f"<h1>Архив по годам</h1><p>{ year }</p>")
 
+class RegisterUser(DataMixin, CreateView):
+    # form_class = UserCreationForm
+    form_class = RegisterUserForm
+    template_name = 'women/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return dict(list(context.items()) + list(c_def.items()))

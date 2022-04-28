@@ -1,22 +1,38 @@
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render
 
-
-menu = [{'title': "Публикации", 'url_name': 'lenta'},
-        {'title': "Поиск мастера", 'url_name': 'search'},
-        {'title': "Сообщения", 'url_name': 'message'},
-        {'title': "Профиль", 'url_name': 'account'},
-        {'title': "Профиль мастера", 'url_name': 'master'},
-        {'title': "Профиль организации", 'url_name': 'organization'}
-        ]
-
-
+# from main.models import ServiceCategory
+#
+# menu = [{'title': "Лента", 'url_name': 'feed'},
+#         {'title': "Поиск мастера", 'url_name': 'home'},
+#         {'title': "Сообщения", 'url_name': 'message'},
+#         {'title': "Профиль", 'url_name': 'account'},
+#         ]
+#
+#
 def pageNotFound(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
+#
+#
+# # def base(request):
+# #     return render(request, 'main/content/home.html', {'title': 'Профиль'})
+#
+# def show_home(request):
+#     service_category = ServiceCategory.objects.all()
+#
+#     if len(service_category) == 0:
+#         raise Http404()
+#     context = {
+#         # 'posts': posts,
+#         'service_category': service_category,
+#         'title': 'Профиль',
+#         # 'cat_selected': cat_id
+#     }
+#     return render(request, 'main/content/home.html', context=context)
 
 
-def base(request):
-    return render(request, 'main/content/home.html', {'title': 'Поиск мастера'})
+def index(request):
+    return render(request, 'main/content/index.html', {'title': 'Профиль'})
 
 
 def account(request):

@@ -5,10 +5,13 @@
                 <span class="navbar-toggler-icon" style="border-style: none;"></span>
             </button>
             <div class="collapse d-xxl-flex justify-content-end navbar-collapse" id="navbarNavDropdown-3">
-                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "feed" %}">Лента</a>
-                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "home" %}">Поиск мастера</a>
-                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "message" %}">Сообщения</a>
-                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "account" %}">Профиль</a>
+{#                {% for m in menu %}#}
+{#                    <a class="btn btn-primary m-2 ms-lg-3" href="{% url m.url_name %}">{{m.title}}</a>#}
+{#                {% endfor %}#}
+                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_feed" %}">Лента</a>
+                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_home" %}">Поиск мастера</a>
+                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_message" %}">Сообщения</a>
+                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_account" %}">Профиль</a>
             </div>
         </div>
     </nav>

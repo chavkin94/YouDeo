@@ -1,12 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib.auth.views import auth_login
 
 urlpatterns = [
-    path(r'', views.base, name='home'),
-    path(r'account/', views.account, name='account'),
-    path(r'feed/', views.feed, name='feed'),
-    path(r'message/', views.message, name='message'),
-    path(r'master/', views.master, name='master'),
-    path(r'organization/', views.organization, name='organization'),
+    path('', views.index, name='main_home'),
+    path('login', views.index, name='main_login'),
+    path('account/', views.account, name='main_account'),
+    path('feed/', views.feed, name='main_feed'),
+    path('message/', views.message, name='main_message'),
+    path('master/', views.master, name='main_master'),
+    path('organization/', views.organization, name='main_organization'),
 ]

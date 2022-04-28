@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'women.apps.WomenConfig',
     'main',
     'account',
+    'authentication',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
