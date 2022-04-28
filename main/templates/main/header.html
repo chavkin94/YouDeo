@@ -1,6 +1,6 @@
 <header>
     <nav class="bg-white m-2 m-4 navbar navbar-expand-lg navbar-light py-lg-1">
-        <div class="container"> <a class="fw-bold navbar-brand text-primary" href="{% url "home" %}" target="">YouDeo</a>
+        <div class="container"> <a class="fw-bold navbar-brand text-primary" href="{% url "main_home" %}" target="">YouDeo</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-3" aria-controls="navbarNavDropdown-3" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" style="border-style: none;"></span>
             </button>
@@ -9,7 +9,7 @@
 {#                    <a class="btn btn-primary m-2 ms-lg-3" href="{% url m.url_name %}">{{m.title}}</a>#}
 {#                {% endfor %}#}
                 <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_feed" %}">Лента</a>
-                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_home" %}">Поиск мастера</a>
+                <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_search" %}">Поиск мастера</a>
                 <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_message" %}">Сообщения</a>
                 <a class="btn btn-primary m-2 ms-lg-3" href="{% url "main_account" %}">Профиль</a>
             </div>

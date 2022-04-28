@@ -7,6 +7,7 @@ from django.shortcuts import render
 #         {'title': "Поиск мастера", 'url_name': 'home'},
 #         {'title': "Сообщения", 'url_name': 'message'},
 #         {'title': "Профиль", 'url_name': 'account'},
+#         {'title': "Поиск мастера", 'url_name': 'account'},
 #         ]
 #
 #
@@ -41,6 +42,10 @@ def account(request):
 
 def feed(request):
     return render(request, 'main/content/feed.html', {'title': 'Публикации'})
+
+
+def search(request):
+    return render(request, 'main/content/search.html', {'title': 'Поиск мастера'})
 
 
 def message(request):
