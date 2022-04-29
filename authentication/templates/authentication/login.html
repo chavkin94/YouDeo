@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 
+
 {% block content %}
     <section class="pb-10 text-center">
         <div class="container">
@@ -28,16 +29,17 @@
                     <div>
                         <form class="form-control" method="post">
                             {% csrf_token %}
-                            <label for="login">Логин</label>
-                            <input type="text" id="inputEmail" class="form-control mb-4" required=""/>
-                            <label for="password">Пароль</label>
-                            <input type="password" id="inputPassword" class="form-control" required=""/>
+                            <div class="form-error">{{ form.non_field_errors }}</div>
+                            {% for f in form %}
+                                <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
+                                <div class="form-error">{{ f.errors }}</div>
+                            {% endfor %}
                             <button class="border btn btn-lg btn-primary fs-7 mt-4" type="submit">Войти</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
     
 {% endblock %}
