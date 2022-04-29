@@ -1,5 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -29,6 +32,18 @@ class RegisterUser(DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'authentication/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    #перекидывает на указанный адрес при авторизации успешной
+    def get_success_url(self):
+        return reverse_lazy('main_home')
 # @login_required
 # @transaction.atomic
 # def update_user(request):
@@ -49,3 +64,7 @@ class RegisterUser(DataMixin, CreateView):
 #         'user_form': user_form,
 #         'user_details_form': user_details_form
 #     })
+
+def logout_user(request):
+    logout(request)
+    return redirect("authentication_login")

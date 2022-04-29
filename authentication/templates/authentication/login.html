@@ -5,13 +5,11 @@
         <div class="col-12 col-lg-5 col-md-7 col-sm-8 col-xl-4 col-xxl-4">
             <form method="post" class="p-4">
                 {% csrf_token %}
-                <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Логин" required=""/>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required=""/>
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"/>&nbsp;Запомнить меня
-                    </label>
-                </div>
+                  <div class="form-error">{{ form.non_field_errors }}</div> {# отображает ошибки #}
+                   {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
+                        <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
                 <button class="btn btn-lg btn-primary fs-6" type="submit">Войти</button>
             </form>
         </div>

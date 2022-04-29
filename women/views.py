@@ -1,5 +1,7 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
@@ -102,8 +104,8 @@ def contact(request):
     return HttpResponse("Контакты")
 
 
-def login(request):
-    return HttpResponse("Вход")
+# def login(request):
+#     return HttpResponse("Вход")
 
 # Пример использования без slug
 # def show_post(request, post_id):
@@ -194,3 +196,21 @@ class RegisterUser(DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Регистрация')
         return dict(list(context.items()) + list(c_def.items()))
+
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'women/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    #перекидывает на указанный адрес при авторизации успешной
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
