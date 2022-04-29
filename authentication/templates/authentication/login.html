@@ -24,12 +24,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 col-12 col-lg-5 col-md-12 col-sm-12 col-xl-5 col-xxl-5 text-center">
-                    <div class="ms-5">
-                        <form method="post">
+                <div class="mt-4 col-8 col-lg-4 col-md-8 col-sm-8 col-xl-3 col-xxl-3 text-center">
+                    <div>
+                        <form class="form-control" method="post">
                             {% csrf_token %}
-                            <input type="text" id="inputEmail" class="form-control mb-4" placeholder="Логин" required=""/>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required=""/>
+                            <label for="login">Логин</label>
+                            <input type="text" id="inputEmail" class="form-control mb-4" required=""/>
+                            <label for="password">Пароль</label>
+                            <input type="password" id="inputPassword" class="form-control" required=""/>
                             <button class="border btn btn-lg btn-primary fs-7 mt-4" type="submit">Войти</button>
                         </form>
                     </div>
