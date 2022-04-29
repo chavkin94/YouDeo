@@ -15,10 +15,14 @@
 </head>
 <body class="fw-light text-secondary bg-body" style="background-image: repeating-radial-gradient(circle at left, rgba(255, 255, 255, 0.21) 9%, rgb(247, 247, 247) 58%);;">
 {#    {% include "main/header.html" %}#}
+
     {% main_show_header %}
+
     {% block content %}
     {% endblock %}
+
     {% main_show_footer %}
+
     <script src="{% static 'main/js/popper.js' %}"></script>
     <script src="{% static 'main/js/bootstrap/bootstrap.min.js' %}"></script>
 </body>
