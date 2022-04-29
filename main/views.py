@@ -1,6 +1,7 @@
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render
 
+
 # from main.models import ServiceCategory
 #
 # menu = [{'title': "Лента", 'url_name': 'feed'},
@@ -13,6 +14,8 @@ from django.shortcuts import render
 #
 def pageNotFound(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
+
+
 #
 #
 # # def base(request):
