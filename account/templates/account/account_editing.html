@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{#     <div class="form-control">#}
+{#                        <form method="post">#}
+{#                            {% csrf_token %}#}
+{#                            {% for f in form %}#}
+{#                                <div class="mb-4">#}
+{#                                    {{ f.label }}{{ f }}#}
+{#                                </div>#}
+{#                                <div class="form-error">{{ f.errors }}</div>#}
+{#                            {% endfor %}#}
+{##}
+{#                            <button class="border btn btn-lg btn-primary fs-7 mt-4" type="submit">Зарегистрироваться</button>#}
+{#                        </form>#}
+{#                    </div>#}
+
+    {{ form.as_p }}
+{% endblock %}

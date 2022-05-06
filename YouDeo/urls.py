@@ -8,9 +8,10 @@ from main.views import pageNotFound
 urlpatterns = [
     path('', include('main.urls')),
     path('', include('authentication.urls')),
+    path('', include('account.urls')),
     path('women/', include('women.urls')),
-
-    path('admin/', admin.site.urls),
+    # path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('adminka/admin', admin.site.urls),
     # path('account/', include('django.contrib.auth.urls')),
     # path('main', include('main.urls')),
 

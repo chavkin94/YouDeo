@@ -1,25 +1,34 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from account.forms import LoginForm
-from django.http import HttpResponse
-from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.views.generic import DetailView, UpdateView
+from account.forms import *
 
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(username=cd['username'], password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Authenticated successfully')
-                else:
-                    return HttpResponse('Disabled account')
-            else:
-                return HttpResponse('Invalid login')
-    else:
-        form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
 
+
+# def account2(request):
+#     return render(request, 'account/account.html', {'title': 'Профиль'})
+
+# User
+class AccountShow(DetailView):
+    model = get_user_model()
+    slug_field = 'username'
+    template_name = 'account/account.html'
+    context_object_name = 'account'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Пользователь'
+        return context
+
+
+class AccountUpdate(UpdateView):
+    # model = EditAccountForm
+    model = User
+    slug_field = 'username'
+    # # context_object_name = 'account'
+    template_name = 'account/account_editing.html'
+    fields = ['username', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone_number']
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = 'Пользователь'
+    #     return context

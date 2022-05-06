@@ -28,7 +28,9 @@
                     <div class="form-control d-flex d-lg-flex d-md-flex d-sm-flex d-xl-flex d-xxl-flex flex-column flex-lg-column flex-md-column flex-sm-column flex-xl-column flex-xxl-column">
 
                         {% if request.user.is_authenticated %}
-                            <h2>{{ user.username }}</h2> | <a href="{% url 'authentication_logout' %}">Выйти</a>
+{#                            <a href="{% url 'account_account' user.username %}">{{ user.username }}</a> | <a href="{% url 'authentication_logout' %}">Выйти</a>#}
+                            <a href="{{ user.get_absolute_url }}">{{ user.username }}</a> | <a href="{% url 'authentication_logout' %}">Выйти</a>#}
+
                         {% else %}
                             <a class="border d-block btn btn-lg btn-primary fs-7 m-3 w-75" href="{% url 'authentication_register' %}">Регистрация</a>
                             <a class="border d-block btn btn-lg btn-primary fs-7 m-3 w-75" href="{% url 'authentication_login' %}">Войти</a>

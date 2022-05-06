@@ -39,7 +39,7 @@ def index(request):
     return render(request, 'main/content/index.html', {'title': 'Профиль'})
 
 
-def account(request):
+def account1(request):
     return render(request, 'main/content/account.html', {'title': 'Профиль'})
 
 

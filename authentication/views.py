@@ -8,14 +8,6 @@ from authentication.forms import *
 from authentication.utils import DataMixin
 
 
-# def login(request):
-#     return render(request, 'authentication/login.html', {'title': 'Войти'})
-
-
-# def registration(request):
-#     return HttpResponse("Регистрация")
-
-
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'authentication/registration.html'
@@ -41,11 +33,10 @@ class LoginUser(DataMixin, LoginView):
         c_def = self.get_user_context(title='Авторизация')
         return dict(list(context.items()) + list(c_def.items()))
 
-    #перекидывает на указанный адрес при авторизации успешной
     def get_success_url(self):
         return reverse_lazy('main_home')
+
 
 def logout_user(request):
     logout(request)
     return redirect('authentication_login')
-
