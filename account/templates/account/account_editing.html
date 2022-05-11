@@ -2,19 +2,23 @@
 
 {% block content %}
 
-{#     <div class="form-control">#}
-{#                        <form method="post">#}
-{#                            {% csrf_token %}#}
-{#                            {% for f in form %}#}
-{#                                <div class="mb-4">#}
-{#                                    {{ f.label }}{{ f }}#}
-{#                                </div>#}
-{#                                <div class="form-error">{{ f.errors }}</div>#}
-{#                            {% endfor %}#}
-{##}
-{#                            <button class="border btn btn-lg btn-primary fs-7 mt-4" type="submit">Зарегистрироваться</button>#}
-{#                        </form>#}
-{#                    </div>#}
-
-    {{ form.as_p }}
+     <div class="form-control">
+        <form method="post">
+            {% csrf_token %}
+{#            {% for f in form %}#}
+{#                <div class="mb-4">#}
+{#                    {{ f.label }}{{ f }}#}
+{#                </div>#}
+{#                <div class="form-error">{{ f.errors }}</div>#}
+{#            {% endfor %}#}
+                {{ form.username }}
+                {{ form.first_name }}
+                {{ form.last_name }}
+                {{ form.birthday }}
+                {{ form.gender }}
+                {{ form.email }}
+                {{ form.phone_number }}
+            <button class="border btn btn-lg btn-primary fs-7 mt-4" type="submit">Сохранить</button>
+        </form>
+    </div>
 {% endblock %}

@@ -1,4 +1,5 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
+from django.shortcuts import redirect
 from django.views.generic import DetailView, UpdateView
 from account.forms import *
 
@@ -21,14 +22,8 @@ class AccountShow(DetailView):
 
 
 class AccountUpdate(UpdateView):
-    # model = EditAccountForm
+
     model = User
     slug_field = 'username'
-    # # context_object_name = 'account'
     template_name = 'account/account_editing.html'
     fields = ['username', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone_number']
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['title'] = 'Пользователь'
-    #     return context

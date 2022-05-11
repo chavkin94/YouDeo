@@ -22,4 +22,13 @@ from django.db import models
 #         ordering = ['-time_create', 'title'] #{ сортировка применяется как на админку, так и на отображение строк при использовании all на самом сайте}#
 
 class AccountTopImage(models.Model):
-title = models.CharField(max_length=255, verbose_name="Заголовок")
+    photo = models.ImageField(upload_to="photos", verbose_name="Фото")
+    # photo = models.ImageField(upload_to="photos"+id, verbose_name="Фото")
+    account_fk = models.ForeignKey('authentication.User', on_delete=models.PROTECT, verbose_name="Аккаунт")
+
+    def __str__(self):
+        return self.account_fk.name
+
+    class Meta:
+        verbose_name = 'Основное фото аккаунта'
+        verbose_name_plural = 'Основное фото аккаунта'

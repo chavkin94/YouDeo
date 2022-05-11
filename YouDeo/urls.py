@@ -11,7 +11,7 @@ urlpatterns = [
     path('', include('account.urls')),
     path('women/', include('women.urls')),
     # path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
-    path('adminka/admin', admin.site.urls),
+    path('adminka/admin/', admin.site.urls),
     # path('account/', include('django.contrib.auth.urls')),
     # path('main', include('main.urls')),
 
