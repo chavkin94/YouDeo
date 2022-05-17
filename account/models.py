@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # class Account(models.Model):
@@ -22,12 +23,11 @@ from django.db import models
 #         ordering = ['-time_create', 'title'] #{ сортировка применяется как на админку, так и на отображение строк при использовании all на самом сайте}#
 
 class AccountTopImage(models.Model):
-    photo = models.ImageField(upload_to="photos", verbose_name="Фото")
-    # photo = models.ImageField(upload_to="photos"+id, verbose_name="Фото")
     account_fk = models.ForeignKey('authentication.User', on_delete=models.PROTECT, verbose_name="Аккаунт")
+    # path_file = str(self)
+    # photo = models.ImageField(upload_to="photos"+id, verbose_name="Фото")
+    photo = models.ImageField(upload_to='images', verbose_name="Фото")
 
-    def __str__(self):
-        return self.account_fk.name
 
     class Meta:
         verbose_name = 'Основное фото аккаунта'

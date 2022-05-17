@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+    <h2>Добавление пользователя</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for f in form %}
+            <div class="mb-4">
+                {{ f.label }}{{ f }}
+            </div>
+            <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+    </form>
+
+{% endblock %}

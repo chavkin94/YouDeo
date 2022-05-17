@@ -20,10 +20,13 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=30, verbose_name="Номер телефона", blank=True,null=True)
 
     def get_absolute_url(self):
-        return reverse('account:account', kwargs={'slug': self.username})
+        return reverse('account:show', kwargs={'slug': self.username})
 
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Подробности о пользователе'
